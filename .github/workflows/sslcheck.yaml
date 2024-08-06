@@ -1,0 +1,17 @@
+name: Check HTTPS Certificate Expiry
+
+on:
+  workflow_dispatch:
+    inputs:
+        url:
+            type: string
+            required: true
+            description: 'URL for checking SSL Certificate'
+
+jobs:
+    checkSSL:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check OpenSSL version
+              run: openssl version
+            
