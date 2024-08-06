@@ -18,5 +18,11 @@ jobs:
             - name: Check SSL expiry date
               run: |
                 expiryDate=$(echo | openssl s_client -servername ${{ inputs.url }} -connect ${{ inputs.url }}:443 2>/dev/null | openssl x509 -noout -dates | grep 'notAfter')
-                echo $expiryDate | awk -F. '{print $2}'
+                $expiryDate =$($expiryDate | awk -F= '{print $2}')
+                {
+                    echo "### Workflow variables"
+                    echo "| Domain Name   | SSL Expiry Date  |"
+                    echo "| ---------- | ----------- |"
+                    echo "| ${{ inputs.ssl }}  | $expiryDate  |"
+                } >> $GITHUB_STEP_SUMMARY
             
