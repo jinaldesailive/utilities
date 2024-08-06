@@ -19,9 +19,10 @@ jobs:
               run: |
                 expiryDate=$(echo | openssl s_client -servername ${{ inputs.url }} -connect ${{ inputs.url }}:443 2>/dev/null | openssl x509 -noout -dates | grep 'notAfter')
                 expiryDate=$(echo $expiryDate | awk -F= '{print $2}')
+                domainName=${{ inputs.url }}
                 echo "### Workflow variables" >> $GITHUB_STEP_SUMMARY
                 echo "| Domain Name   | SSL Expiry Date  |" >> $GITHUB_STEP_SUMMARY
                 echo "| ---------- | ----------- |" >> $GITHUB_STEP_SUMMARY
-                echo "| ${{ inputs.ssl }}  | $expiryDate  |" >> $GITHUB_STEP_SUMMARY
+                echo "| $domainName  | $expiryDate  |" >> $GITHUB_STEP_SUMMARY
                 
             
